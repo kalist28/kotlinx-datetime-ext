@@ -1,0 +1,51 @@
+{
+  "initialVersion": "0.1.0",
+  "preset": "extended",
+  "scheme": "SEMVER",
+  "verbosity": "INFO",
+  "releaseLenient": true,
+  "tagVersionPattern": "v{{version}}",
+  "commitMessageConventions": {
+    "enabled": [
+      "conventionalCommits",
+      "conventionalCommitsForMerge"
+    ]
+  },
+  "releaseTypes": {
+    "enabled": ["stable", "beta", "rc", "hotfix"],
+    "items": {
+      "stable": {
+        "matchBranches": "^(main|master)$",
+        "gitTag": "true",
+        "filterTags": "^([0-9]\\d*)\\.([0-9]\\d*)\\.([0-9]\\d*)$"
+      },
+      "beta": {
+        "matchBranches": "^develop$",
+        "gitTag": "true",
+        "identifiers": [
+          {
+            "position": "PRE_RELEASE",
+            "qualifier": "beta",
+            "separator": "."
+          }
+        ],
+        "filterTags": "^([0-9]\\d*)\\.([0-9]\\d*)\\.([0-9]\\d*)(\\.beta(\\.([0-9]\\d*))?)?$"
+      },
+      "rc": {
+        "matchBranches": "^release\\/.*$",
+        "gitTag": "true",
+        "identifiers": [
+          {
+            "position": "PRE_RELEASE",
+            "qualifier": "rc"
+          }
+        ],
+        "filterTags": "^([0-9]\\d*)\\.([0-9]\\d*)\\.([0-9]\\d*)(-rc(\\.([0-9]\\d*))?)?$"
+      },
+      "hotfix": {
+        "matchBranches": "^hotfix\\/.*$",
+        "gitTag": "true"
+      }
+    }
+  }
+}
