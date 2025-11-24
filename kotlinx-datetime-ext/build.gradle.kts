@@ -47,7 +47,7 @@ kotlin {
 }
 
 android {
-    namespace = "io.github.kalist28.datetime.ext"
+    namespace = "io.github.kalist28"
     compileSdk = 35
 
     defaultConfig {
@@ -71,7 +71,7 @@ version = System.getenv("VERSION") ?: run {
 mavenPublishing {
     publishToMavenCentral(automaticRelease = true)
     coordinates(
-        groupId = "io.github.kalist28.datetime.ext",
+        groupId = "io.github.kalist28",
         artifactId = "kotlinx-datetime-ext",
         version = project.version as String
     )
