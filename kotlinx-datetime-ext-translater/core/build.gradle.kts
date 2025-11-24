@@ -1,3 +1,4 @@
+
 plugins {
     alias(libs.plugins.multiplatform)
     alias(libs.plugins.android.library)
@@ -8,8 +9,13 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.datetime)
+            api(libs.kotlinx.datetime)
         }
 
+        commonTest.dependencies {
+            api(libs.kotlinx.datetime)
+        }
     }
 }
+
+

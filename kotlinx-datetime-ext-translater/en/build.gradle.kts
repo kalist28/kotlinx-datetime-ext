@@ -8,8 +8,11 @@ plugins {
 kotlin {
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinx.datetime)
+            implementation(":kotlinx-datetime-ext-translater:core")
         }
 
+        commonTest.dependencies {
+            //implementation(libs.kotlinx.datetime)
+        }
     }
 }

@@ -1,16 +1,21 @@
 [versions]
 
 kotlin = "2.2.0"
-agp = "8.10.0"
+agp = "8.12.0"
+gradle = "8.12.0"
 maven-publish = "0.34.0"
 kotlinx-datetime = "0.7.1"
 compose = "1.8.2"
 androidx-activityCompose = "1.10.1"
 
 [libraries]
-
+gradle = { module = "com.android.tools.build:gradle", version.ref = "gradle" }
+kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
 kotlinx-datetime = { module = "org.jetbrains.kotlinx:kotlinx-datetime", version.ref = "kotlinx-datetime" }
 androidx-activityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
+vanniktech-mavenPublish = { module = "com.vanniktech:gradle-maven-publish-plugin", version.ref = "maven-publish" }
+vanniktech-maven-publish-gradle-plugin = { module = "com.vanniktech.maven.publish:com.vanniktech.maven.publish.gradle.plugin", version.ref = "maven-publish" }
+kotlin-multiplatform-android-library-gradle-plugin = { module = "com.android.kotlin.multiplatform.library:com.android.kotlin.multiplatform.library.gradle.plugin", version.ref = "agp" }
 
 [plugins]
 
