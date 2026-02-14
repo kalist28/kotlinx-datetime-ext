@@ -22,7 +22,7 @@ Depend on the latest version by declaring this in `libs.versions.toml`:
 
 ```toml
 [versions]
-kotlinx-datetime-ext = "0.1.0"
+kotlinx-datetime-ext = "0.2.0"
 
 [libraries]
 kotlinx-datetime-ext = { group = "io.github.kalist28", name = "kotlinx-datetime-ext", version.ref = "kotlinx-datetime-ext" }
@@ -32,7 +32,7 @@ Or directly in `build.gradle.kts`:
 
 ```kotlin
 dependencies {
-    implementation("io.github.kalist28:kotlinx-datetime-ext:0.1.0")
+    implementation("io.github.kalist28:kotlinx-datetime-ext:0.2.0")
 }
 ```
 
