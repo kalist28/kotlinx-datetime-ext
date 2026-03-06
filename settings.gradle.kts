@@ -29,6 +29,7 @@ dependencyResolutionManagement {
     }
 }
 include(":kotlinx-datetime-ext")
+include(":kotlinx-datetime-ext-formatted-bundle")
 include(":sample:composeApp")
 include(":sample:terminalApp")
 
