@@ -122,6 +122,99 @@ val formatted = time.formatToClock()  // Format to "HH:mm"
 val parsed = "09:05".clockToLocalTime()  // Parse from "HH:mm" or "HH:mm:ss" string
 ```
 
+### 📦 DateTimeBundleFormatter
+
+Formats `LocalDateTime` into a comprehensive `DateTimeBundle` with all representations at once. Requires adding the `kotlinx-datetime-ext-formatted-bundle` dependency:
+
+```toml
+[versions]
+kotlinx-datetime-ext-formatted-bundle = "0.1.0"
+
+[libraries]
+kotlinx-datetime-ext-formatted-bundle = { group = "io.github.kalist28", name = "kotlinx-datetime-ext-formatted-bundle", version.ref = "kotlinx-datetime-ext-formatted-bundle" }
+```
+
+```kotlin
+val formatter = DateTimeBundleFormatter(
+    timezone = TimeZone.of("Europe/Moscow"),
+    strings = RussianDateTimeBundleStrings() // or EnglishDateTimeBundleStrings()
+)
+
+val bundle = formatter.from(LocalDateTime(2025, 9, 20, 19, 11, 8))
+
+bundle.timestamp            // 1726851068
+bundle.diffForHumans        // "5 минут назад" / "5 minutes ago"
+bundle.dateForHuman         // "2025-09-20"
+bundle.dateForHumanFull     // "20 сентября 2025г." / "20 September 2025"
+bundle.dateForHumanFullWithTime // "20 сентября 2025г. в 19:11:08" / "20 September 2025 at 19:11:08"
+bundle.iso                  // "2025-09-20T19:11:08.000000+03:00"
+bundle.time                 // "19:11:08"
+bundle.timeShort            // "19:11"
+bundle.isFuture             // false
+```
+
+#### DateTimeBundle methods
+
+```kotlin
+// Date/time checks
+bundle.isToday(TimeZone.UTC)              // true if today
+bundle.isYesterday(TimeZone.UTC)          // true if yesterday
+bundle.isTomorrow(TimeZone.UTC)           // true if tomorrow
+bundle.isThisWeek(TimeZone.UTC)           // true if in same week
+bundle.isThisYear(TimeZone.UTC)           // true if in same year
+
+// Comparisons
+bundle.isBefore(otherBundle)              // timestamp comparison
+bundle.isAfter(otherBundle)               // timestamp comparison
+
+// Date formatting
+bundle.dateShort(strings, tz)             // "20 сен" (day and short month)
+bundle.dateWithDayOfWeek(strings, tz)     // "Суббота, 20 сентября" (day of week + date)
+bundle.relative()                         // "5 минут назад"
+
+// Time calculations
+bundle.minutesUntil()                     // Minutes until/since (negative if past)
+bundle.hoursUntil()                       // Hours until/since
+bundle.daysUntil()                        // Days until/since
+```
+
+#### Built-in localization
+
+| Class | Language |
+|-------|----------|
+| `RussianDateTimeBundleStrings` | Русский |
+| `EnglishDateTimeBundleStrings` | English |
+
+Custom localization: implement `DateTimeBundleStrings` interface.
+
+### 🔢 Pluralization utilities
+
+Helper functions for proper pluralization in different languages following CLDR (Common Locale Data Repository) standards.
+
+```kotlin
+// Russian pluralization (3 forms)
+PluralUtils.pluralize(1, "минута", "минуты", "минут")    // "1 минута"
+PluralUtils.pluralize(5, "минута", "минуты", "минут")    // "5 минут"
+PluralUtils.pluralize(21, "минута", "минуты", "минут")   // "21 минута"
+
+// English pluralization (2 forms)
+PluralUtils.pluralizeEnglish(1, "minute", "minutes")     // "1 minute"
+PluralUtils.pluralizeEnglish(5, "minute", "minutes")     // "5 minutes"
+
+// Advanced: using CLDR categories
+val forms = mapOf(
+    PluralCategory.ONE to "минута",
+    PluralCategory.FEW to "минуты",
+    PluralCategory.MANY to "минут"
+)
+PluralUtils.pluralizeRussian(2, forms, "минут")          // "2 минуты"
+
+// Determine plural category
+getPluralCategoryRussian(1)   // PluralCategory.ONE
+getPluralCategoryRussian(5)   // PluralCategory.MANY
+getPluralCategoryEnglish(2)   // PluralCategory.OTHER
+```
+
 ## Supported Platforms
 
 | Platform   | Status |
